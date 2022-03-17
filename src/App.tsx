@@ -11,7 +11,6 @@ const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
 function App() {
   const { user } = useAuthListener();
-  console.log(user);
 
   return (
     <UserContext.Provider value={{ user }}>

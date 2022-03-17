@@ -13,7 +13,7 @@ const User: FC<UserProps> = ({ userName, fullName }) => {
   return (
     <>
       {userName === "" || fullName === "" ? (
-        <Skeleton count={1} height={61} />
+        <Skeleton style={{ borderRadius: "8px" }} count={1} height={61} />
       ) : (
         <Link
           to={`/p/${userName}`}

@@ -1,21 +1,26 @@
 import styled from "styled-components";
 
 export const Avatar = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
 `;
 
 export const UserContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
   margin-bottom: 16px;
 `;
 
 export const UserNameHolder = styled.div`
+  font-size: 13px;
   p:first-of-type {
+    margin-bottom: 4px;
     font-weight: bold;
+  }
+  p:last-of-type {
+    margin-top: 4px;
   }
 `;

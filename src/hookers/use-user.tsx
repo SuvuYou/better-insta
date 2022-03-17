@@ -6,6 +6,7 @@ interface UserType {
   username: string;
   fullName: string;
   userId: string;
+  following: string[];
   docId: string;
 }
 

@@ -4,11 +4,23 @@ import User from "./User/User";
 import Suggestions from "./Suggestions/Suggestions";
 
 const Sidebar: FC = () => {
-  const { user = { username: "", fullName: "", userId: "" } } = useUser();
+  const {
+    user = {
+      username: "",
+      fullName: "",
+      userId: "",
+      following: [],
+      docId: "",
+    },
+  } = useUser();
   return (
-    <div>
+    <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
       <User userName={user.username} fullName={user.fullName} />
-      <Suggestions userId={user.userId} />
+      <Suggestions
+        userId={user.userId}
+        following={user.following}
+        userDocId={user.docId}
+      />
     </div>
   );
 };
