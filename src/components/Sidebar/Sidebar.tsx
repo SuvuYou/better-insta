@@ -16,11 +16,22 @@ const Sidebar: FC = () => {
   return (
     <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
       <User userName={user.username} fullName={user.fullName} />
-      <Suggestions
-        userId={user.userId}
-        following={user.following}
-        userDocId={user.docId}
-      />
+      <div>
+        <p
+          style={{
+            marginBottom: "10px",
+            marginTop: 0,
+            fontSize: "14px",
+          }}
+        >
+          Suggestions for you
+        </p>
+        <Suggestions
+          userId={user.userId}
+          following={user.following}
+          userDocId={user.docId}
+        />
+      </div>
     </div>
   );
 };

@@ -24,12 +24,13 @@ const SuggestedProfile: FC<ProfileProps> = ({
   userId,
   userDocId,
 }) => {
+  const [imageSrc, setImageSrc] = useState(`images/avatars/${userName}.jpg`);
   const [isFollowed, setIsFollowed] = useState(false);
 
   const handleFollowUser = async () => {
     setIsFollowed(true);
-    addUserFollowers(profileDocId, [userId]);
-    addUserFollowing(userDocId, [profileId]);
+    addUserFollowers(profileDocId, [userId], true);
+    addUserFollowing(userDocId, [profileId], true);
   };
 
   if (isFollowed) {
@@ -40,7 +41,10 @@ const SuggestedProfile: FC<ProfileProps> = ({
     <>
       <UserContainer>
         <Link to={`/p/${userName}`} style={{ width: "24px", height: "24px" }}>
-          <Avatar src={`images/avatars/default.jpg`} />
+          <Avatar
+            src={imageSrc}
+            onError={() => setImageSrc("images/avatars/default.jpg")}
+          />
         </Link>
         <UserNameHolder>
           <p>{userName}</p>

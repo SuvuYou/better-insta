@@ -43,7 +43,7 @@ const Suggestions: FC<SuggestionsProps> = ({
   }
 
   if (profiles.length === 0) {
-    return <></>;
+    return <>No suggestions yet</>;
   }
 
   return (

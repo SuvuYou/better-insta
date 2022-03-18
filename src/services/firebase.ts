@@ -68,16 +68,16 @@ export const getUserSuggestionsByUserId: funcType = async (
 
 export const addUserFollowers = async (
   userDocId: string,
-  newFolowers: string[]
+  newFolowers: string[],
+  isAddFollower: boolean
 ) => {
   const docRef = await firebase.firestore().collection("users").doc(userDocId);
 
   docRef.get().then((doc) => {
     if (doc.exists) {
-      const data = doc.data();
-      const updatedFollowers = Array.from(
-        new Set([...data?.followers, ...newFolowers])
-      );
+      const updatedFollowers = isAddFollower
+        ? FieldValue.arrayUnion(newFolowers[0])
+        : FieldValue.arrayRemove(newFolowers[0]);
       docRef.update({ followers: updatedFollowers });
     }
   });
@@ -85,16 +85,16 @@ export const addUserFollowers = async (
 
 export const addUserFollowing = async (
   userDocId: string,
-  newFolowing: string[]
+  newFolowing: string[],
+  isAddFollowing: boolean
 ) => {
   const docRef = await firebase.firestore().collection("users").doc(userDocId);
 
   docRef.get().then((doc) => {
     if (doc.exists) {
-      const data = doc.data();
-      const updatedFollowing = Array.from(
-        new Set([...data?.following, ...newFolowing])
-      );
+      const updatedFollowing = isAddFollowing
+        ? FieldValue.arrayUnion(newFolowing[0])
+        : FieldValue.arrayRemove(newFolowing[0]);
       docRef.update({ following: updatedFollowing });
     }
   });

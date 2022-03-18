@@ -32,7 +32,7 @@ export const ButtonWrapper = styled.div`
   gap: 15px;
 `;
 
-export const NoStyleBtn = styled.button`
+export const NoStyleBtn = styled(Link)`
   background-color: transparent;
   border: none;
   cursor: pointer;

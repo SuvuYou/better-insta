@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -10,6 +10,12 @@ interface UserProps {
 }
 
 const User: FC<UserProps> = ({ userName, fullName }) => {
+  const [imageSrc, setImageSrc] = useState(`images/avatars/${userName}.jpg`);
+
+  useEffect(() => {
+    setImageSrc(`images/avatars/${userName}.jpg`);
+  }, [userName]);
+
   return (
     <>
       {userName === "" || fullName === "" ? (
@@ -20,7 +26,10 @@ const User: FC<UserProps> = ({ userName, fullName }) => {
           style={{ textDecoration: "none", color: "black" }}
         >
           <UserContainer>
-            <Avatar src={`images/avatars/default.jpg`} />
+            <Avatar
+              src={imageSrc}
+              onError={() => setImageSrc("images/avatars/default.jpg")}
+            />
             <UserNameHolder>
               <p>{userName}</p>
               <p>{fullName}</p>

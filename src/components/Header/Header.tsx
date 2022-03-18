@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import UserContext from "../../context/auth";
 import FirebaseContext from "../../context/firebase";
 import * as ROUTES from "../../constants/routes";
@@ -19,6 +19,13 @@ import { Link } from "react-router-dom";
 const Header: FC = () => {
   const { firebase } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
+  const [imageSrc, setImageSrc] = useState(
+    `images/avatars/${user.displayName}.jpg`
+  );
+
+  useEffect(() => {
+    setImageSrc(`images/avatars/${user.displayName}.jpg`);
+  }, [user]);
 
   return (
     <HeaderContainer>
@@ -37,6 +44,7 @@ const Header: FC = () => {
                   />
                 </Link>
                 <NoStyleBtn
+                  to={ROUTES.LOGIN}
                   onClick={() => {
                     firebase.auth().signOut();
                   }}
@@ -47,7 +55,10 @@ const Header: FC = () => {
                   />
                 </NoStyleBtn>
                 <Link to={`/p/${user.displayName}`}>
-                  <Avatar src={"images/avatars/default.jpg"} />
+                  <Avatar
+                    src={imageSrc}
+                    onError={() => setImageSrc("images/avatars/default.jpg")}
+                  />
                 </Link>
               </>
             ) : (

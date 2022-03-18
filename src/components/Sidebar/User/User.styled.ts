@@ -11,7 +11,6 @@ export const UserContainer = styled.div`
   justify-content: flex-start;
   gap: 15px;
   align-items: center;
-  margin-bottom: 16px;
 `;
 
 export const UserNameHolder = styled.div`
