@@ -22,7 +22,26 @@ export const getUserByUID = async (uid: string) => {
     docId: item.id,
   }));
 
-  return { activeUser };
+  return { activeUser } as any;
+};
+
+export const getPostsForUserByFollowings = async (Followings: string[]) => {
+  const result = await firebase
+    .firestore()
+    .collection("photos")
+    .where("userId", "in", Followings)
+    .get();
+
+  const posts: { docId: string; [x: string]: any }[] = result.docs.map(
+    (post) => ({
+      ...post.data(),
+      docId: post.id,
+    })
+  );
+
+  const sortedPosts = posts.sort((a, b) => a.dateCreated - b.dateCreated);
+
+  return { posts: sortedPosts };
 };
 
 interface UserType {
@@ -96,6 +115,44 @@ export const addUserFollowing = async (
         ? FieldValue.arrayUnion(newFolowing[0])
         : FieldValue.arrayRemove(newFolowing[0]);
       docRef.update({ following: updatedFollowing });
+    }
+  });
+};
+
+export const changePhotoLikes = async (
+  photoDocId: string,
+  newLikes: string[],
+  isAddLikes: boolean
+) => {
+  const docRef = await firebase
+    .firestore()
+    .collection("photos")
+    .doc(photoDocId);
+
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      const updatedLikes = isAddLikes
+        ? FieldValue.arrayUnion(newLikes[0])
+        : FieldValue.arrayRemove(newLikes[0]);
+      docRef.update({ likes: updatedLikes });
+    }
+  });
+};
+
+export const addComment = async (
+  photoDocId: string,
+  comment: { comment: string; displayName: string }
+) => {
+  const docRef = await firebase
+    .firestore()
+    .collection("photos")
+    .doc(photoDocId);
+
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      const updatedComments = FieldValue.arrayUnion(comment);
+
+      docRef.update({ comments: updatedComments });
     }
   });
 };

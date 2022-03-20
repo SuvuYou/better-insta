@@ -11,6 +11,10 @@ const Grid = styled.div`
   display: grid;
   gap: 15px;
   grid-template-columns: 66% auto;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 100%;
+  }
 `;
 
 const Dashboard: FC = () => {

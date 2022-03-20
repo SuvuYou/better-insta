@@ -2,6 +2,17 @@ import { FC } from "react";
 import { useUser } from "../../hookers/use-user";
 import User from "./User/User";
 import Suggestions from "./Suggestions/Suggestions";
+import styled from "styled-components";
+
+const SidebarContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
 
 const Sidebar: FC = () => {
   const {
@@ -14,7 +25,7 @@ const Sidebar: FC = () => {
     },
   } = useUser();
   return (
-    <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
+    <SidebarContainer>
       <User userName={user.username} fullName={user.fullName} />
       <div>
         <p
@@ -32,7 +43,7 @@ const Sidebar: FC = () => {
           userDocId={user.docId}
         />
       </div>
-    </div>
+    </SidebarContainer>
   );
 };
 
