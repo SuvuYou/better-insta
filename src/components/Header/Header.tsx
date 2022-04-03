@@ -57,7 +57,9 @@ const Header: FC = () => {
                 <Link to={`/p/${user.displayName}`}>
                   <Avatar
                     src={imageSrc}
-                    onError={() => setImageSrc("images/avatars/default.jpg")}
+                    onError={() => {
+                      setImageSrc("/images/avatars/default.jpg");
+                    }}
                   />
                 </Link>
               </>

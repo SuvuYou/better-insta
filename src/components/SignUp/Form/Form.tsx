@@ -42,15 +42,17 @@ const SignUpForm: FC = () => {
         });
         firebase.firestore().collection("users").add({
           userId: createdUser.user.uid,
-          username: userName.toLowerCase(),
+          username: userName,
           fullName: fullName,
           emailAddress: email.toLowerCase(),
           following: [],
           followers: [],
           dateCreated: Date.now(),
         });
+        setLoading(false);
         navigate(ROUTES.DASHBOARD, { replace: false });
       } catch (error) {
+        setLoading(false);
         setUserName("");
         setFullName("");
         setEmail("");
@@ -58,9 +60,9 @@ const SignUpForm: FC = () => {
         setError((error as any).message);
       }
     } else {
+      setLoading(false);
       setError("This username is already taken");
     }
-    setLoading(false);
   };
 
   const isValid = useMemo(() => {

@@ -3,24 +3,9 @@ import Header from "./components/Header/Header";
 import PostFooter from "./components/Footer/Footer";
 import { getUserByUID } from "../../../services/firebase";
 import { PostContainer, PostImage } from "./Post.styled";
+import { FirebasePostType } from "../../../types";
 
-interface PostType {
-  caption: string;
-  comments: {
-    comment: string;
-    displayName: string;
-  }[];
-  dateCreated: number;
-  imageSrc: string;
-  likes: string[];
-  photoId: string;
-  userId: string;
-  userLatitude: string;
-  userLongitude: string;
-  docId: string;
-}
-
-const Post: FC<{ postData: PostType }> = ({ postData }) => {
+const Post: FC<{ postData: FirebasePostType }> = ({ postData }) => {
   const { likes, imageSrc, caption, userId, comments, docId } = postData;
 
   const [user, setUser] = useState<any>({});

@@ -50,7 +50,7 @@ const Timeline: FC = () => {
 
   return (
     <div>
-      {posts.length === 0 && isLoading ? (
+      {posts?.length === 0 && !isLoading ? (
         <>Follow people to see posts</>
       ) : (
         posts.map((post, index) => <Post key={index} postData={post} />)
